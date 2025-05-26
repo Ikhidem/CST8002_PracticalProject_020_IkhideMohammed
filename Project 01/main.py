@@ -4,7 +4,7 @@ from record import FacilityRecord
 
 print("Mohammed Ikhide\n")  # Display name permanently
 
-facilities = []  # Array-like data structure
+facilities = []  # Array List
 
 def clean_text(text):  # Method to clean text fields
     if text:
@@ -15,7 +15,7 @@ try:
     with open("Nitrogen oxide emissions by facility.csv", mode='r', encoding='ISO-8859-1') as file:  # File-IO
         reader = csv.DictReader(file)  # Read CSV as dictionaries
         for i, row in enumerate(reader):  # Loop with counter
-            if i >= 5:
+            if i >= 15:
                 break
             record = FacilityRecord(
                 np_id=clean_text(row['NPRI ID']),
