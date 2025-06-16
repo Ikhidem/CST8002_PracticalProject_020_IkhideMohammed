@@ -9,9 +9,10 @@ Author: Mohammed Ikhide
 """
 
 import unittest
-from record import FacilityRecord       # Import data model
-import business                         # Import business logic functions
+from model.record import FacilityRecord       # Import data model
+import business.business as business                         # Import business logic functions
 
+print("Mohammed Ikhide - Program by ACSIS 040871093\n")
 class TestBusinessLayer(unittest.TestCase):
     """
     Unit test class for verifying business logic operations such as adding records.

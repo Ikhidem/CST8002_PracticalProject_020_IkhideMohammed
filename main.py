@@ -1,24 +1,18 @@
 """
-main.py - Presentation Layer for the Facility Emissions Record Management System
-
-This module serves as the user interface, allowing interaction with the application
-through a command-line menu system. It enables users to load, view, add, update,
-delete, and save facility records. This file communicates with the Business and
-Persistence layers to delegate functionality.
-
-Author: Mohammed Ikhide
+Presentation layer to interact with the user.
+Handles menu display and user input, and delegates actions to the business and persistence layers.
 """
 
-from record import FacilityRecord  # Data model import
-import business                    # Business logic module
-import persistence                 # File I/O module
+from model.record import FacilityRecord                 # Import data model
+import business.business as business                    # Import business logic module
+import persistence.persistence as persistence           # Import file I/O operations
 
-# Display developer identification
+# Display author information
 print("Mohammed Ikhide - Program by ACSIS 040871093\n")
 
 def display_menu():
     """
-    Displays the main menu with available user options.
+    Displays the command-line menu options for the user.
     """
     print("\nMenu:")
     print("1. Load records from CSV")
@@ -32,10 +26,10 @@ def display_menu():
 
 def prompt_record_input():
     """
-    Prompts the user for all required record fields and returns a populated FacilityRecord object.
+    Prompts the user to enter all fields for a new FacilityRecord.
     
     Returns:
-        FacilityRecord: A new record instance with user input values.
+        FacilityRecord: A record object with the entered field values.
     """
     return FacilityRecord(
         input("NPRI ID: "),
@@ -54,55 +48,57 @@ def prompt_record_input():
         input("Report year: ")
     )
 
-# Main interaction loop
+# Main interactive loop
 while True:
     display_menu()
     choice = input("Enter choice: ")
 
     if choice == "1":
-        # Load records from the CSV file and populate the in-memory list
+        # Clear current in-memory data and load fresh data from CSV
         business.clear_records()
-        records = persistence.load_records_from_csv("Nitrogen oxide emissions by facility.csv")
+        records = persistence.load_records_from_csv(
+            "C:/Users/Ikhid/Desktop/CST8002/Practical Project Repo/CST8002_PracticalProject_020_IkhideMohammed/Nitrogen oxide emissions by facility.csv"
+        )
         for rec in records:
             business.add_record(rec)
         print(f"{len(records)} records loaded.")
 
     elif choice == "2":
-        # Save current in-memory records to a new CSV file with a UUID-based filename
+        # Save current in-memory records to a new CSV file using a UUID name
         saved_path = persistence.save_records_to_csv(business.get_all_records())
         print(f"Records saved to {saved_path}")
 
     elif choice == "3":
-        # Display all records, with name printed every 10 records
+        # Display all records in memory, include author stamp every 10 records
         for i, record in enumerate(business.get_all_records()):
             print(f"{i}: {record}")
             if (i + 1) % 10 == 0:
                 print("Program by Mohammed Ikhide")
 
     elif choice == "4":
-        # Display a single record by index
+        # Display a specific record by index
         idx = int(input("Enter record index: "))
         rec = business.get_record(idx)
         print(rec if rec else "Record not found.")
 
     elif choice == "5":
-        # Add a new record to the in-memory list
+        # Prompt user to enter a new record, then add to memory
         record = prompt_record_input()
         business.add_record(record)
-        print("Record added.")
+        print("Record added. Program by Mohammed Ikhide")
 
     elif choice == "6":
-        # Edit an existing record by index
+        # Edit a record by index with new values entered by user
         idx = int(input("Enter index to edit: "))
         updated = prompt_record_input()
         business.edit_record(idx, updated)
-        print("Record updated.")
+        print("Record updated. Program by Mohammed Ikhide")
 
     elif choice == "7":
-        # Delete a record from memory by index
+        # Delete a record by index
         idx = int(input("Enter index to delete: "))
         business.delete_record(idx)
-        print("Record deleted.")
+        print("Record deleted. Program by Mohammed Ikhide")
 
     elif choice == "8":
         # Exit the program
