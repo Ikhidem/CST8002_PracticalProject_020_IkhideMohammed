@@ -2,6 +2,8 @@
 Presentation layer to interact with the user.
 """
 
+""" To run Main use terminal command: python -m presentation.main"""
+
 from model.record import FacilityRecord
 import business.business as business
 import persistence.persistence as persistence
