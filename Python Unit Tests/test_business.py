@@ -53,3 +53,5 @@ class TestSorting(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+"""run this in Terminal for business.py: python -m unittest "Python Unit Tests/test_business.py"""
