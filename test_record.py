@@ -12,7 +12,7 @@ import unittest
 from model.record import FacilityRecord       # Import data model
 import business.business as business                         # Import business logic functions
 
-print("Mohammed Ikhide - Program by ACSIS 040871093\n")
+print("Mohammed Ikhide\n")
 class TestBusinessLayer(unittest.TestCase):
     """
     Unit test class for verifying business logic operations such as adding records.

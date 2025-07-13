@@ -8,7 +8,7 @@ import business.business as business                    # Import business logic 
 import persistence.persistence as persistence           # Import file I/O operations
 
 # Display author information
-print("Mohammed Ikhide - Program by ACSIS 040871093\n")
+print("Mohammed Ikhide\n")
 
 def display_menu():
     """
