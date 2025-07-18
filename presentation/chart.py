@@ -1,4 +1,9 @@
 """
+Charting is powered by matplotlib:
+Hunter, J. D. (2007). Matplotlib: A 2D Graphics Environment. Computing in Science & Engineering, 9(3), 90-95. https://doi.org/10.1109/MCSE.2007.55
+Licensed under the PSF License Agreement.
+"""
+"""
 Generates chart visualizations for emissions data.
 """
 import matplotlib.pyplot as plt
