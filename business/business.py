@@ -1,8 +1,5 @@
-"""
-Business logic layer for managing facility records in memory.
-"""
+# Business logic layer for managing facility records in memory.
 
-# In-memory list to store all FacilityRecord objects
 facilities = []
 
 def add_record(record):
@@ -48,10 +45,7 @@ def clear_records():
 def sort_records_by_column(column_name):
     """
     Sorts the facilities list in place by a specific column name.
-    
-    Args:
-        column_name (str): The name of the column to sort by. 
-                           Supported: 'facility_name', 'city', 'province', 'emissions'.
+    Supported: 'facility_name', 'city', 'province', 'emissions'.
     """
     if column_name == "facility_name":
         facilities.sort(key=lambda r: r.facility_name.lower())
@@ -66,3 +60,18 @@ def sort_records_by_column(column_name):
             print("Error: Emissions column contains invalid data.")
     else:
         print(f"Invalid column name for sorting: {column_name}")
+
+def get_top_emitters(n=5):
+    """
+    Returns the top N facilities with the highest emissions.
+    """
+    try:
+        sorted_list = sorted(
+            facilities,
+            key=lambda r: float(r.emissions) if r.emissions.replace('.', '', 1).isdigit() else 0,
+            reverse=True
+        )
+        return sorted_list[:n]
+    except Exception as e:
+        print(f"Error calculating top emitters: {e}")
+        return []
