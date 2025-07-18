@@ -50,7 +50,7 @@ while True:
 
     if choice == "1":
         business.clear_records()
-        records = persistence.load_records_from_csv("your_file_path.csv")
+        records = persistence.load_records_from_csv("C:/Users/Ikhid/Desktop/CST8002/Practical Project Repo/CST8002_PracticalProject_020_IkhideMohammed/Nitrogen oxide emissions by facility.csv")
         for rec in records:
             business.add_record(rec)
         print(f"{len(records)} records loaded.")
