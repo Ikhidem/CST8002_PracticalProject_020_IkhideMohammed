@@ -1,3 +1,4 @@
+
 """
 Presentation layer to interact with the user.
 To run Main use terminal command: python -m presentation.main
@@ -5,7 +6,7 @@ To run Main use terminal command: python -m presentation.main
 from model.record import FacilityRecord
 import business.business as business
 import persistence.persistence as persistence
-from presentation.chart import show_bar_chart
+from presentation.chart import show_chart
 
 print("Mohammed Ikhide\n")
 
@@ -19,7 +20,7 @@ def display_menu():
     print("6. Edit a record")
     print("7. Delete a record")
     print("8. Sort records by column")
-    print("9. Show emissions chart (Top 5)")
+    print("9. Show emissions chart")
     print("10. Exit")
 
 def prompt_record_input():
@@ -107,13 +108,25 @@ while True:
 
     elif choice == "9":
         """
-        Option to show a bar chart of the top 5 emitters.
+        Option to show a customizable emissions chart.
+        User can select how many records and chart type.
         """
-        top_emitters = business.get_top_emitters()
-        names = [rec.facility_name for rec in top_emitters]
-        emissions = [float(rec.emissions) for rec in top_emitters]
-        show_bar_chart(names, emissions)
-        print("Chart displayed. Program by Mohammed Ikhide")
+        try:
+            count = int(input("How many top emitters to display? "))
+            print("Select chart type:")
+            print("1. Vertical Bar Chart")
+            print("2. Horizontal Bar Chart")
+            print("3. Pie Chart")
+            chart_choice = input("Enter choice: ")
+            chart_map = {"1": "bar", "2": "hbar", "3": "pie"}
+            chart_type = chart_map.get(chart_choice, "bar")
+            top_emitters = business.get_top_emitters(count)
+            names = [rec.facility_name for rec in top_emitters]
+            emissions = [float(rec.emissions) for rec in top_emitters]
+            show_chart(names, emissions, chart_type)
+            print("Chart displayed. Program by Mohammed Ikhide")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
     elif choice == "10":
         break
