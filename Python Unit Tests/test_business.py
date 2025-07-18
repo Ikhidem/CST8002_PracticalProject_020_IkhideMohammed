@@ -29,7 +29,7 @@ class TestSorting(unittest.TestCase):
         business.add_record(self.rec3)
 
     def test_sort_by_emissions(self):
-        """Ottaw
+        """Ottawa
         Test sorting by emissions column (numeric).
         """
         business.sort_records_by_column("emissions")
