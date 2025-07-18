@@ -1,12 +1,11 @@
 """
 Presentation layer to interact with the user.
+To run Main use terminal command: python -m presentation.main
 """
-
-""" To run Main use terminal command: python -m presentation.main"""
-
 from model.record import FacilityRecord
 import business.business as business
 import persistence.persistence as persistence
+from presentation.chart import show_bar_chart
 
 print("Mohammed Ikhide\n")
 
@@ -20,9 +19,13 @@ def display_menu():
     print("6. Edit a record")
     print("7. Delete a record")
     print("8. Sort records by column")
-    print("9. Exit")
+    print("9. Show emissions chart (Top 5)")
+    print("10. Exit")
 
 def prompt_record_input():
+    """
+    Collects record input from user to create a new FacilityRecord.
+    """
     return FacilityRecord(
         input("NPRI ID: "),
         input("Facility name: "),
@@ -46,9 +49,7 @@ while True:
 
     if choice == "1":
         business.clear_records()
-        records = persistence.load_records_from_csv(
-            "C:/Users/Ikhid/Desktop/CST8002/Practical Project Repo/CST8002_PracticalProject_020_IkhideMohammed/Nitrogen oxide emissions by facility.csv"
-        )
+        records = persistence.load_records_from_csv("your_file_path.csv")
         for rec in records:
             business.add_record(rec)
         print(f"{len(records)} records loaded.")
@@ -91,14 +92,12 @@ while True:
         print("3. Province")
         print("4. Emissions")
         sort_choice = input("Enter choice: ")
-
         column_map = {
             "1": "facility_name",
             "2": "city",
             "3": "province",
             "4": "emissions"
         }
-
         column_name = column_map.get(sort_choice)
         if column_name:
             business.sort_records_by_column(column_name)
@@ -107,6 +106,16 @@ while True:
             print("Invalid sort choice.")
 
     elif choice == "9":
+        """
+        Option to show a bar chart of the top 5 emitters.
+        """
+        top_emitters = business.get_top_emitters()
+        names = [rec.facility_name for rec in top_emitters]
+        emissions = [float(rec.emissions) for rec in top_emitters]
+        show_bar_chart(names, emissions)
+        print("Chart displayed. Program by Mohammed Ikhide")
+
+    elif choice == "10":
         break
 
     else:
